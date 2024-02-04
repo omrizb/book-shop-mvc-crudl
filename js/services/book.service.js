@@ -10,6 +10,11 @@ function getBooks() {
     return gBooks
 }
 
+function removeBook(bookId) {
+    const idx = gBooks.findIndex(book => book.id === bookId)
+    gBooks.splice(idx, 1)
+}
+
 function _createBook(title, price, imgUrl) {
     return {
         id: makeId(6),

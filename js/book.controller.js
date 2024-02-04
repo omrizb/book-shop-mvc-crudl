@@ -15,7 +15,7 @@ function render() {
             <td>
                 <button class="btn1 read-btn">Read</button>
                 <button class="btn1 update-btn">Update</button>
-                <button class="btn1 delete-btn">Delete</button>
+                <button class="btn1 delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button>
             </td>
         </tr>
         `
@@ -23,4 +23,11 @@ function render() {
 
     const elTable = document.querySelector('tbody.books-data')
     elTable.innerHTML = htmlStr
+}
+
+function onRemoveBook(ev, bookId) {
+    ev.stopPropagation()
+    
+    removeBook(bookId)
+    render()
 }
