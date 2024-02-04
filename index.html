@@ -3,11 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" src="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Book Shop</title>
 </head>
-<body>
+<body onload="onInit()">
     <h1>Welcome to my book shop</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Harry Potter</td>
+                <td>100</td>
+                <td>
+                    <button class="btn1 read-btn">Read</button>
+                    <button class="btn1 update-btn">Update</button>
+                    <button class="btn1 delete-btn">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Little women</td>
+                <td>70</td>
+                <td>
+                    <button class="btn1 read-btn">Read</button>
+                    <button class="btn1 update-btn">Update</button>
+                    <button class="btn1 delete-btn">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Flowers for Algernon</td>
+                <td>85</td>
+                <td>
+                    <button class="btn1 read-btn">Read</button>
+                    <button class="btn1 update-btn">Update</button>
+                    <button class="btn1 delete-btn">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     
     <script src="./js/services/book.utils.js"></script>
     <script src="./js/services/book.service.js"></script>

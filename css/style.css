@@ -1,3 +1,43 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: lightgrey;
+}
+
+th, td {
+    border: 1px solid gray;
+    padding: 0.5em 1em;
+}
+
+th {
+    background-color: antiquewhite;
+}
+
+.btn1 {
+    padding: 0.5em;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.read-btn {
+    background-color: lightskyblue;
+}
+
+.update-btn {
+    background-color: yellow;
+}
+
+.delete-btn {
+    background-color: palevioletred;
+}
