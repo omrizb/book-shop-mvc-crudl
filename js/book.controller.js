@@ -25,6 +25,16 @@ function render() {
     elTable.innerHTML = htmlStr
 }
 
+function onAddBook(ev) {
+    ev.preventDefault()
+
+    const elNewBookTitle = document.querySelector('.add-book .book-title')
+    const elNewBookPrice = document.querySelector('.add-book .book-price')
+
+    addBook(elNewBookTitle.value, elNewBookPrice.value)
+    render()
+}
+
 function onUpdatePrice(bookId) {
     const price = +prompt('Enter the new price:')
     if (isNaN(price)) {

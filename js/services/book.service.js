@@ -10,6 +10,10 @@ function getBooks() {
     return gBooks
 }
 
+function addBook(title, price, imgUrl='') {
+    _createBook(title, price, imgUrl)
+}
+
 function  updatePrice(bookId, price) {
     const book = gBooks.find(book => book.id === bookId)
     book.price = price
@@ -21,10 +25,11 @@ function removeBook(bookId) {
 }
 
 function _createBook(title, price, imgUrl) {
-    return {
+    const newBook = {
         id: makeId(6),
         title,
         price,
         imgUrl
     }
+    gBooks.unshift(newBook)
 }

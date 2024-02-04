@@ -8,6 +8,13 @@
 </head>
 <body onload="onInit()">
     <h1>Welcome to my book shop</h1>
+
+    <h2>Add a new book</h2>
+    <form class="add-book" onsubmit="onAddBook(event)">
+        Title: <input class="book-title" type="text" placeholder="Enter book title">
+        Price: <input class="book-price" type="number" placeholder="Enter price">
+        <button class="btn1">Add Book</button>
+    </form>
     
     <table>
         <thead>
