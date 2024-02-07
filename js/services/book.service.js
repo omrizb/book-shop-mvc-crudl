@@ -14,6 +14,10 @@ function addBook(title, price, imgUrl='') {
     _createBook(title, price, imgUrl)
 }
 
+function readBook(bookId) {
+    return gBooks.find(book => book.id === bookId)
+}
+
 function  updatePrice(bookId, price) {
     const book = gBooks.find(book => book.id === bookId)
     book.price = price

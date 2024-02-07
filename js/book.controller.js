@@ -13,7 +13,7 @@ function render() {
             <td>${book.title}</td>
             <td>${book.price}</td>
             <td>
-                <button class="btn1 read-btn">Read</button>
+                <button class="btn1 read-btn" onclick="onReadBook('${book.id}')">Read</button>
                 <button class="btn1 update-btn" onclick="onUpdatePrice('${book.id}')">Update</button>
                 <button class="btn1 delete-btn" onclick="onRemoveBook(event, '${book.id}')">Delete</button>
             </td>
@@ -33,6 +33,19 @@ function onAddBook(ev) {
 
     addBook(elNewBookTitle.value, elNewBookPrice.value)
     render()
+}
+
+function onReadBook(bookId) {
+    const book = readBook(bookId)
+    const bookStr = JSON.stringify(book, null, 4)
+
+    const elBookModal = document.querySelector('.book-modal')
+    const elBookTitle = elBookModal.querySelector('h2')
+    const elBookDetails = elBookModal.querySelector('pre')
+
+    elBookTitle.textContent = book.title
+    elBookDetails.innerHTML = bookStr
+    elBookModal.showModal()
 }
 
 function onUpdatePrice(bookId) {
