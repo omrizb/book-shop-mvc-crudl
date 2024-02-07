@@ -1,12 +1,15 @@
 'use strict'
 
 function onInit() {
+    setSearchInput()
     render()
 }
 
-function render() {
+function render(options) {
     var htmlStr = ''
-    var books = getBooks()
+
+    const books = getBooks(options)
+
     books.forEach(book => {
         htmlStr += `
         <tr>
@@ -61,7 +64,27 @@ function onUpdatePrice(bookId) {
 
 function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
-    
+
     removeBook(bookId)
     render()
+}
+
+function onSearchBook(elSearchBook) {
+    const searchStr = elSearchBook.value
+    render({ filterBy: { title: searchStr } })
+}
+
+function onClearSearch() {
+    const elSearchInput = _getQuerySearchInput()
+    elSearchInput.value = ''
+    render({ filterBy: { title: '' } })
+}
+
+function setSearchInput() {
+    const elSearchInput = _getQuerySearchInput()
+    elSearchInput.value = getSearchInput()
+}
+
+function _getQuerySearchInput() {
+    return document.querySelector('input.search-book')
 }

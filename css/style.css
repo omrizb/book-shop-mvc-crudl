@@ -7,6 +7,7 @@ body {
 }
 
 table {
+    margin: 2em auto;
     border: 1px solid gray;
     border-collapse: collapse;
 }
@@ -21,7 +22,65 @@ th, td {
 }
 
 th {
-    background-color: antiquewhite;
+    background-color: lightblue;
+}
+
+header {
+    padding: 2em;
+    background-color: lightblue;
+}
+
+header h1 {
+    margin: 0;
+}
+
+section {
+    padding: 1em;
+    
+}
+
+section h2 {
+    margin: 0;
+}
+
+section.search-book {
+    background-color: lightpink;
+}
+
+section.add-book {
+    color: white;
+    background-color: navy;
+}
+
+input {
+    width: 200px;
+    height: 30px;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+    gap: 1.5em;
+
+    padding: 0.5em;
+}
+
+.simple-flex {
+    display: flex;
+}
+
+.little-box-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-inline-end: 0;
+
+    background-color: white;
 }
 
 .btn1 {

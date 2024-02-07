@@ -7,14 +7,37 @@
     <title>Book Shop</title>
 </head>
 <body onload="onInit()">
-    <h1>Welcome to my book shop</h1>
+    <header>
+        <h1>Welcome to my book shop</h1>
+    </header>
+    
 
-    <h2>Add a new book</h2>
-    <form class="add-book" onsubmit="onAddBook(event)">
-        Title: <input class="book-title" type="text" placeholder="Enter book title">
-        Price: <input class="book-price" type="number" placeholder="Enter price">
-        <button class="btn1">Add Book</button>
-    </form>
+    <section class="search-book">
+        <h2>Search for a book</h2>
+        <form class="search-book" onsubmit="onClearSearch()">
+            <div class="header-flex">
+                <div class="simple-flex">
+                    <div class="little-box-center"><img src="./images/search_icon.png" class="search-icon"></div>
+                    <input class="search-book" type="search" placeholder="Search by book title..." autocomplete="off" oninput="onSearchBook(this)">
+                </div>
+                <button class="btn1">Clear</button>
+            </div>
+        </form>
+        </div>
+    </section>
+
+    <section class="add-book">
+        <h2>Add a new book</h2>
+        <form class="add-book" onsubmit="onAddBook(event)">
+            <div class="header-flex">
+                <div>Title: <input class="book-title" type="text" placeholder="Enter book title"></div>
+                <div>Price: <input class="book-price" type="number" placeholder="Enter price"></div>
+                <button class="btn1">Add Book</button>
+            </div>
+        </form>
+        </div>
+    </section>
+    
     
     <table>
         <thead>
