@@ -1,31 +1,36 @@
 'use strict'
 
-const gBooks = [
-    { id: makeId(6), title: 'Harry Potter', price: 100, imgUrl: 'img1.jpeg' },
-    { id: makeId(6), title: 'Little women', price: 70, imgUrl: 'img2.jpeg' },
-    { id: makeId(6), title: 'Flowers for Algernon', price: 85, imgUrl: 'img3.jpeg' },
-]
+const STORAGE_KEY = 'booksDb'
+
+var gBooks
+
+_createBooks()
 
 function getBooks() {
     return gBooks
 }
 
-function addBook(title, price, imgUrl='') {
+function addBook(title, price, imgUrl = '') {
     _createBook(title, price, imgUrl)
+    _saveBooksToStorage()
 }
 
 function readBook(bookId) {
     return gBooks.find(book => book.id === bookId)
 }
 
-function  updatePrice(bookId, price) {
+function updatePrice(bookId, price) {
     const book = gBooks.find(book => book.id === bookId)
     book.price = price
+
+    _saveBooksToStorage()
 }
 
 function removeBook(bookId) {
     const idx = gBooks.findIndex(book => book.id === bookId)
     gBooks.splice(idx, 1)
+
+    _saveBooksToStorage()
 }
 
 function _createBook(title, price, imgUrl) {
@@ -36,4 +41,20 @@ function _createBook(title, price, imgUrl) {
         imgUrl
     }
     gBooks.unshift(newBook)
+}
+
+function _createBooks() {
+    gBooks = loadFromStorage(STORAGE_KEY)
+    if (gBooks && gBooks.length) return
+
+    gBooks = []
+    _createBook('Harry Potter', 100, 'img1.jpeg')
+    _createBook('Little women', 70, 'img2.jpeg')
+    _createBook('Flowers for Algernon', 85, 'img3.jpeg')
+
+    _saveBooksToStorage()
+}
+
+function _saveBooksToStorage() {
+    saveToStorage(STORAGE_KEY, gBooks)
 }
