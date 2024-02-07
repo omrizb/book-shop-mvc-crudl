@@ -100,3 +100,38 @@ input {
 .delete-btn {
     background-color: palevioletred;
 }
+
+.alert-modal {
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 400px;
+    height: 80px;
+    border-radius: 20px;
+
+    font-size: large;
+    opacity: 0.9;
+}
+
+.green-alert {
+    border: 1px solid green;
+    color: green;
+    background-color: lightgreen;
+}
+
+.red-alert {
+    border: 1px solid darkred;
+    color: darkred;
+    background-color: lightpink;
+}
+
+.hidden {
+    display: none;
+}

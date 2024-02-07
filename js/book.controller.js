@@ -1,5 +1,7 @@
 'use strict'
 
+var gAlertTimeoutId
+
 function onInit() {
     setSearchInput()
     render()
@@ -35,6 +37,7 @@ function onAddBook(ev) {
     const elNewBookPrice = document.querySelector('.add-book .book-price')
 
     addBook(elNewBookTitle.value, elNewBookPrice.value)
+    showAlert(`The book ${elNewBookTitle.value} was added successfully`)
     render()
 }
 
@@ -59,6 +62,7 @@ function onUpdatePrice(bookId) {
     }
 
     updatePrice(bookId, price)
+    showAlert('The price has been updated')
     render()
 }
 
@@ -66,6 +70,7 @@ function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
 
     removeBook(bookId)
+    showAlert('The book has been deleted', false)
     render()
 }
 
@@ -83,6 +88,23 @@ function onClearSearch() {
 function setSearchInput() {
     const elSearchInput = _getQuerySearchInput()
     elSearchInput.value = getSearchInput()
+}
+
+function showAlert(text, isGreen = true) {
+    const elAlert = document.querySelector('.alert-modal')
+    elAlert.textContent = text
+    if (isGreen) {
+        elAlert.classList.add('green-alert')
+        elAlert.classList.remove('red-alert')
+    } else {
+        elAlert.classList.add('red-alert')
+        elAlert.classList.remove('green-alert')
+    }
+
+    elAlert.classList.remove('hidden')
+
+    clearTimeout(gAlertTimeoutId)
+    gAlertTimeoutId = setTimeout(() => elAlert.classList.add('hidden'), 3000);
 }
 
 function _getQuerySearchInput() {
