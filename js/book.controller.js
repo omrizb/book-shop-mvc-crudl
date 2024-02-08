@@ -14,6 +14,8 @@ function render(options) {
 
     const books = getBooks(options)
 
+    if (books.length === 0) htmlStr = '<tr><td colspan="3" class="no-books">No books to display</td></tr>'
+
     books.forEach(book => {
         htmlStr += `
         <tr>
