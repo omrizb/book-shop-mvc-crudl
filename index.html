@@ -7,48 +7,53 @@
     <title>Book Shop</title>
 </head>
 <body onload="onInit()">
-    <header>
-        <h1>Welcome to my book shop</h1>
-    </header>
-    
-
-    <section class="search-book">
-        <h2>Search for a book</h2>
-        <form class="search-book" onsubmit="onClearSearch()">
+    <div class="page-container"></section>
+        <header>
+            <h1>Welcome to my book shop</h1>
+        </header>
+        
+        <section class="search-book">
+            <h2>Search for a book</h2>
             <div class="header-flex">
                 <div class="simple-flex">
                     <div class="little-box-center"><img src="./images/search_icon.png" class="search-icon"></div>
                     <input class="search-book" type="search" placeholder="Search by book title..." autocomplete="off" oninput="onSearchBook(this)">
                 </div>
-                <button class="btn1">Clear</button>
+                <button class="btn1" onclick="onClearSearch()">Clear</button>
             </div>
-        </form>
-        </div>
-    </section>
+        </section>
 
-    <section class="add-book">
-        <h2>Add a new book</h2>
-        <form class="add-book" onsubmit="onAddBook(event)">
-            <div class="header-flex">
-                <div>Title: <input class="book-title" type="text" placeholder="Enter book title"></div>
-                <div>Price: <input class="book-price" type="number" placeholder="Enter price"></div>
-                <button class="btn1">Add Book</button>
-            </div>
-        </form>
-        </div>
-    </section>
-    
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody class="books-data"></tbody>
-    </table>
+        <section class="add-book">
+            <h2>Add a new book</h2>
+            <form class="add-book" onsubmit="onAddBook(event)">
+                <div class="header-flex">
+                    <div>Title: <input class="book-title" type="text" placeholder="Enter book title"></div>
+                    <div>Price: <input class="book-price" type="number" placeholder="Enter price"></div>
+                    <button class="btn1">Add Book</button>
+                </div>
+            </form>
+        </section>
+      
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="books-data"></tbody>
+        </table>
+
+        <div class="empty-space"></div>
+
+        <footer>
+            <div>Total books: <span class="total-books"></span></div>
+            <div>Expensive books: <span class="expensive-books"></span></div>
+            <div>Average books: <span class="average-books"></span></div>
+            <div>Cheap books: <span class="cheap-books"></span></div>
+        </footer>
+    </div>
     
     <dialog class="book-modal">
         <form method="dialog">
@@ -59,6 +64,8 @@
     </dialog>
 
     <section class="alert-modal hidden"></section>
+
+    
 
     <script src="./js/services/book.utils.js"></script>
     <script src="./js/services/storage.service.js"></script>

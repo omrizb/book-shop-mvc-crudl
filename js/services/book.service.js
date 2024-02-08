@@ -5,20 +5,20 @@ const STORAGE_OPTIONS_KEY = 'options'
 
 var gBooks
 
-_setDefaultOptions()
 _createBooks()
 
-function getBooks(options = {}) {
-    const currOptions = _getOptions(options)
-
-    var cars = _filterBooks(currOptions.filterBy)
+function getBooks(options) {
+    var cars = _filterBooks(options.filterBy)
     
     return cars
 }
 
 function addBook(title, price, imgUrl = '') {
-    _createBook(title, price, imgUrl)
+    if (!title || title === '') return
+    const book = _createBook(title, price, imgUrl)
     _saveBooksToStorage()
+
+    return book
 }
 
 function readBook(bookId) {
@@ -30,6 +30,8 @@ function updatePrice(bookId, price) {
     book.price = price
 
     _saveBooksToStorage()
+
+    return book
 }
 
 function removeBook(bookId) {
@@ -37,33 +39,6 @@ function removeBook(bookId) {
     gBooks.splice(idx, 1)
 
     _saveBooksToStorage()
-}
-
-function getSearchInput() {
-    const options = loadFromStorage(STORAGE_OPTIONS_KEY)
-    return options.filterBy.title
-}
-
-function _setDefaultOptions() {
-    const currOptions = loadFromStorage(STORAGE_OPTIONS_KEY)
-    if (currOptions) return
-
-    const options = {
-        filterBy: {
-            title: '',
-        }
-    }
-    saveToStorage(STORAGE_OPTIONS_KEY, options)
-}
-
-function _getOptions(options) {
-    const totalOptions = loadFromStorage(STORAGE_OPTIONS_KEY)
-
-    Object.keys(options).forEach(key => totalOptions[key] = options[key])
-
-    saveToStorage(STORAGE_OPTIONS_KEY, totalOptions)
-
-    return totalOptions
 }
 
 function _createBook(title, price, imgUrl) {
@@ -74,6 +49,8 @@ function _createBook(title, price, imgUrl) {
         imgUrl
     }
     gBooks.unshift(newBook)
+
+    return newBook
 }
 
 function _createBooks() {
@@ -93,7 +70,11 @@ function _saveBooksToStorage() {
 }
 
 function _filterBooks(filterBy) {
-    var title = filterBy.title.toLowerCase()
+    const title = filterBy.title.toLowerCase()
+    const minPrice = filterBy.minPrice
+    const maxPrice = filterBy.maxPrice
     
-    return gBooks.filter(book => book.title.toLowerCase().includes(title))
+    return gBooks.filter(book => book.title.toLowerCase().includes(title)
+                            && book.price >= minPrice
+                            && book.price <= maxPrice)
 }

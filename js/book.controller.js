@@ -1,10 +1,12 @@
 'use strict'
 
+const gQueryOptions = _setQueryOptions()
+
 var gAlertTimeoutId
+var gCarToEdit = null
 
 function onInit() {
-    setSearchInput()
-    render()
+    render(gQueryOptions)
 }
 
 function render(options) {
@@ -28,6 +30,16 @@ function render(options) {
 
     const elTable = document.querySelector('tbody.books-data')
     elTable.innerHTML = htmlStr
+
+    renderFooter()
+}
+
+function renderFooter() {
+    const elFooter = document.querySelector('footer')
+    elFooter.querySelector('.total-books').textContent = getBooks(_setQueryOptions()).length
+    elFooter.querySelector('.expensive-books').textContent = getBooks(_setQueryOptions({ minPrice: 201 })).length
+    elFooter.querySelector('.average-books').textContent = getBooks(_setQueryOptions({ minPrice: 80, maxPrice: 200 })).length
+    elFooter.querySelector('.cheap-books').textContent = getBooks(_setQueryOptions({ maxPrice: 79 })).length
 }
 
 function onAddBook(ev) {
@@ -36,9 +48,14 @@ function onAddBook(ev) {
     const elNewBookTitle = document.querySelector('.add-book .book-title')
     const elNewBookPrice = document.querySelector('.add-book .book-price')
 
+    if (elNewBookTitle.value === '') {
+        showAlert('Cannot add an empty book', 'orange')
+        return
+    }
+
     addBook(elNewBookTitle.value, elNewBookPrice.value)
-    showAlert(`The book ${elNewBookTitle.value} was added successfully`)
-    render()
+    showAlert(`The book ${elNewBookTitle.value} was added successfully`, 'green')
+    render(gQueryOptions)
 }
 
 function onReadBook(bookId) {
@@ -62,49 +79,62 @@ function onUpdatePrice(bookId) {
     }
 
     updatePrice(bookId, price)
-    showAlert('The price has been updated')
-    render()
+    showAlert('The price has been updated', 'green')
+    render(gQueryOptions)
 }
 
 function onRemoveBook(ev, bookId) {
     ev.stopPropagation()
 
     removeBook(bookId)
-    showAlert('The book has been deleted', false)
-    render()
+    showAlert('The book has been deleted', 'red')
+    render(gQueryOptions)
 }
 
 function onSearchBook(elSearchBook) {
     const searchStr = elSearchBook.value
-    render({ filterBy: { title: searchStr } })
+    render(_setQueryOptions({ title: searchStr }))
 }
 
 function onClearSearch() {
     const elSearchInput = _getQuerySearchInput()
     elSearchInput.value = ''
-    render({ filterBy: { title: '' } })
+    render(_setQueryOptions({ title: '' }))
 }
 
-function setSearchInput() {
-    const elSearchInput = _getQuerySearchInput()
-    elSearchInput.value = getSearchInput()
-}
+function showAlert(text, alertType) {
+    const alertTypes = ['green', 'orange', 'red']
+    const alertClasses = ['green-alert', 'orange-alert', 'red-alert']
+    const alertStatuses = [0, 0, 0]
+    const typeIdx = alertTypes.findIndex(type => type === alertType)
+    alertStatuses[typeIdx] = 1
 
-function showAlert(text, isGreen = true) {
     const elAlert = document.querySelector('.alert-modal')
     elAlert.textContent = text
-    if (isGreen) {
-        elAlert.classList.add('green-alert')
-        elAlert.classList.remove('red-alert')
-    } else {
-        elAlert.classList.add('red-alert')
-        elAlert.classList.remove('green-alert')
-    }
+
+    addRemoveElClasses(elAlert, alertClasses, alertStatuses)
 
     elAlert.classList.remove('hidden')
 
     clearTimeout(gAlertTimeoutId)
     gAlertTimeoutId = setTimeout(() => elAlert.classList.add('hidden'), 3000);
+}
+
+function addRemoveElClasses(el, classes, statuses) {
+    classes.forEach((currClass, idx) => {
+        if (statuses[idx] === 1 || statuses[idx] === true) el.classList.add(currClass)
+        else el.classList.remove(currClass)
+    })
+}
+
+function _setQueryOptions({ title = '', minPrice = 0, maxPrice = Infinity } = {}) {
+    return {
+        filterBy: {
+            title,
+            minPrice,
+            maxPrice
+        }
+    }
 }
 
 function _getQuerySearchInput() {
