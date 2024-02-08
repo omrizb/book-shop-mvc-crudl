@@ -41,10 +41,11 @@ function removeBook(bookId) {
     _saveBooksToStorage()
 }
 
-function _createBook(title, price, imgUrl) {
+function _createBook(title, author, price, imgUrl) {
     const newBook = {
         id: makeId(6),
         title,
+        author,
         price,
         imgUrl
     }
@@ -58,9 +59,9 @@ function _createBooks() {
     if (gBooks && gBooks.length) return
 
     gBooks = []
-    _createBook('Harry Potter', 100, 'img1.jpeg')
-    _createBook('Little women', 70, 'img2.jpeg')
-    _createBook('Flowers for Algernon', 85, 'img3.jpeg')
+    _createBook('Harry Potter', 'J. K. Rolling', 100, 'harry_potter.jpg')
+    _createBook('Little women', 'Louisa May Alcott', 70, 'little_women.jpg')
+    _createBook('Flowers for Algernon', 'Daniel Keyes', 85, 'flowers_for_algernon.jpg')
 
     _saveBooksToStorage()
 }

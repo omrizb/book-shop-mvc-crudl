@@ -62,14 +62,13 @@ function onAddBook(ev) {
 
 function onReadBook(bookId) {
     const book = readBook(bookId)
-    const bookStr = JSON.stringify(book, null, 4)
 
     const elBookModal = document.querySelector('.book-modal')
-    const elBookTitle = elBookModal.querySelector('h2')
-    const elBookDetails = elBookModal.querySelector('pre')
-
-    elBookTitle.textContent = book.title
-    elBookDetails.innerHTML = bookStr
+    elBookModal.querySelector('img').src = `./images/${book.imgUrl}`
+    elBookModal.querySelector('.details h2').textContent = book.title
+    elBookModal.querySelector('.details h3').textContent = book.author
+    elBookModal.querySelector('.details span').textContent = `Price: ${book.price} NIS`
+    
     elBookModal.showModal()
 }
 

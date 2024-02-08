@@ -83,6 +83,23 @@ td.no-books {
     color: gray;
 }
 
+.modal-flex-container {
+    display: flex;
+    gap: 20px;
+
+    width: 350px;
+
+    margin-top: 1em;
+}
+
+.book-modal img {
+    height: 250px;
+}
+
+.book-modal h2, h3 {
+    margin: 0 0 1em;
+}
+
 .empty-space {
     flex-grow: 1;
 }

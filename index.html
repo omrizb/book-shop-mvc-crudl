@@ -58,14 +58,19 @@
     <dialog class="book-modal">
         <form method="dialog">
             <button>x</button>
-            <h2></h2>
-            <pre></pre>
+            <div class="modal-flex-container">
+                <img src="" onerror="this.src='./images/no_image.jpg'">
+                <div class="details">
+                    <h2></h2>
+                    <h3></h3>
+                    <span></span>
+                </div>
+            </div>
+            
         </form>
     </dialog>
 
     <section class="alert-modal hidden"></section>
-
-    
 
     <script src="./js/services/book.utils.js"></script>
     <script src="./js/services/storage.service.js"></script>
