@@ -65,15 +65,23 @@ th {
 }
 
 th:nth-of-type(1) {
-    min-width: 200px;
+    min-width: 280px;
 }
 
 th:nth-of-type(2) {
-    min-width: 80px;
+    min-width: 140px;
 }
 
 th:nth-of-type(3) {
+    min-width: 80px;
+}
+
+th:nth-of-type(4) {
     min-width: 220px;
+}
+
+td .author {
+    font-size: small;
 }
 
 td.no-books {
@@ -81,6 +89,10 @@ td.no-books {
     font-size: larger;
     font-weight: bold;
     color: gray;
+}
+
+.book-modal {
+    background-color: lightgoldenrodyellow;
 }
 
 .modal-flex-container {
@@ -92,12 +104,17 @@ td.no-books {
     margin-top: 1em;
 }
 
-.book-modal img {
+.book-modal .details {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-modal .cover-image {
     height: 250px;
 }
 
 .book-modal h2, h3 {
-    margin: 0 0 1em;
+    margin: 0 0 0.5em;
 }
 
 .empty-space {
@@ -196,6 +213,10 @@ input {
     border: 1px solid darkred;
     color: darkred;
     background-color: lightpink;
+}
+
+.rating-star {
+    height: 18px;
 }
 
 .hidden {

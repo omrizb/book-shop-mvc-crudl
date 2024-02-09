@@ -1,5 +1,7 @@
 'use strict'
 
+const RATING = '<img src="./images/orange_star.png" class="rating-star">'
+
 const gQueryOptions = _setQueryOptions()
 
 var gAlertTimeoutId
@@ -14,12 +16,13 @@ function render(options) {
 
     const books = getBooks(options)
 
-    if (books.length === 0) htmlStr = '<tr><td colspan="3" class="no-books">No books to display</td></tr>'
+    if (books.length === 0) htmlStr = '<tr><td colspan="4" class="no-books">No books to display</td></tr>'
 
     books.forEach(book => {
         htmlStr += `
         <tr>
-            <td>${book.title}</td>
+            <td>${book.title} / <span class="author">${book.author}</span></td>
+            <td>${_convertRating(book.rating)}</td>
             <td>${book.price}</td>
             <td>
                 <button class="btn1 read-btn" onclick="onReadBook('${book.id}')">Read</button>
@@ -67,8 +70,9 @@ function onReadBook(bookId) {
     elBookModal.querySelector('img').src = `./images/${book.imgUrl}`
     elBookModal.querySelector('.details h2').textContent = book.title
     elBookModal.querySelector('.details h3').textContent = book.author
-    elBookModal.querySelector('.details span').textContent = `Price: ${book.price} NIS`
-    
+    elBookModal.querySelector('.details .rating').innerHTML = `${_convertRating(book.rating)}`
+    elBookModal.querySelector('.details .price').textContent = `Price: ${book.price} NIS`
+
     elBookModal.showModal()
 }
 
@@ -140,4 +144,12 @@ function _setQueryOptions({ title = '', minPrice = 0, maxPrice = Infinity } = {}
 
 function _getQuerySearchInput() {
     return document.querySelector('input.search-book')
+}
+
+function _convertRating(rating) {
+    var ratingStr = ''
+    for (var i = 0; i < rating; i++) {
+        ratingStr += RATING
+    }
+    return ratingStr
 }
