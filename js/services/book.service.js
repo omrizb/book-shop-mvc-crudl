@@ -73,10 +73,12 @@ function _saveBooksToStorage() {
 
 function _filterBooks(filterBy) {
     const title = filterBy.title.toLowerCase()
+    const minRating = filterBy.minRating
     const minPrice = filterBy.minPrice
     const maxPrice = filterBy.maxPrice
     
     return gBooks.filter(book => book.title.toLowerCase().includes(title)
+                            && book.rating >= minRating
                             && book.price >= minPrice
                             && book.price <= maxPrice)
 }

@@ -96,15 +96,23 @@ function onRemoveBook(ev, bookId) {
     render(gQueryOptions)
 }
 
-function onSearchBook(elSearchBook) {
-    const searchStr = elSearchBook.value
-    render(_setQueryOptions({ title: searchStr }))
+function onFilterBooks() {
+    const title = getQueryFilterByTitle().value
+    const minRating = +getQueryFilterByRating().value
+    const filterBy = {
+        filterBy: {
+            title,
+            minRating
+        }
+    }
+    _updateQueryOptions(filterBy)
+    render(gQueryOptions)
 }
 
-function onClearSearch() {
-    const elSearchInput = _getQuerySearchInput()
-    elSearchInput.value = ''
-    render(_setQueryOptions({ title: '' }))
+function onClearFilter() {
+    getQueryFilterByTitle().value = ''
+    getQueryFilterByRating().value = 0
+    onFilterBooks()
 }
 
 function showAlert(text, alertType) {
@@ -132,18 +140,19 @@ function addRemoveElClasses(el, classes, statuses) {
     })
 }
 
-function _setQueryOptions({ title = '', minPrice = 0, maxPrice = Infinity } = {}) {
+function _setQueryOptions() {
     return {
         filterBy: {
-            title,
-            minPrice,
-            maxPrice
+            title: '',
+            minRating: 0,
+            minPrice: 0,
+            maxPrice: Infinity
         }
     }
 }
 
-function _getQuerySearchInput() {
-    return document.querySelector('input.search-book')
+function _updateQueryOptions(options = {}) {
+    deepMerge(gQueryOptions, options)
 }
 
 function _convertRating(rating) {

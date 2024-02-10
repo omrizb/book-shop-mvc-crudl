@@ -31,7 +31,7 @@ section h2 {
     margin: 0;
 }
 
-section.search-book {
+section.filter-and-sort {
     background-color: lightpink;
 }
 
@@ -131,6 +131,11 @@ footer {
 
 input {
     width: 200px;
+    height: 30px;
+}
+
+select {
+    width: 50px;
     height: 30px;
 }
 

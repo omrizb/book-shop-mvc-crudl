@@ -12,15 +12,32 @@
             <h1>Welcome to my book shop</h1>
         </header>
         
-        <section class="search-book">
-            <h2>Search for a book</h2>
-            <div class="header-flex">
-                <div class="simple-flex">
-                    <div class="little-box-center"><img src="./images/search_icon.png" class="search-icon"></div>
-                    <input class="search-book" type="search" placeholder="Search by book title..." autocomplete="off" oninput="onSearchBook(this)">
+        <section class="filter-and-sort">
+            <fieldset class="simple-flex">
+                <legend>Filter and sort</legend>
+                <div class="filter">
+                    <h2>Filter your results</h2>
+                    <div class="header-flex">
+                        <div class="simple-flex">
+                            <div class="little-box-center"><img src="./images/search_icon.png" class="search-icon"></div>
+                            <input class="filter-by-title" type="search" placeholder="Book title..." autocomplete="off" oninput="onFilterBooks()">
+                        </div>
+
+                        <label>
+                            Min Rating:
+                            <select class="filter-by-rating" onchange="onFilterBooks()">
+                                <option value="0"></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </label>
+                        <button class="btn1" onclick="onClearFilter()">Clear</button>
+                    </div>
                 </div>
-                <button class="btn1" onclick="onClearSearch()">Clear</button>
-            </div>
+            </fieldset>
         </section>
 
         <section class="add-book">
@@ -78,6 +95,8 @@
     <script src="./js/services/book.utils.js"></script>
     <script src="./js/services/storage.service.js"></script>
     <script src="./js/services/book.service.js"></script>
+    <script src="./js/queries.view.js"></script>
+    <script src="./js/utils.controller.js"></script>
     <script src="./js/book.controller.js"></script>
 </body>
 </html>
