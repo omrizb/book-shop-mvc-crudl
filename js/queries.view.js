@@ -7,3 +7,11 @@ function getQueryFilterByTitle() {
 function getQueryFilterByRating() {
     return document.querySelector('select.filter-by-rating')
 }
+
+function getQuerySortByValue() {
+    return document.querySelector('.sort-by')
+}
+
+function getQuerySortByDir() {
+    return document.querySelector('input[name="sort-by"]:checked')
+}

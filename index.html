@@ -26,7 +26,7 @@
                         <label>
                             Min Rating:
                             <select class="filter-by-rating" onchange="onFilterBooks()">
-                                <option value="0"></option>
+                                <option value="0" selected></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -35,6 +35,28 @@
                             </select>
                         </label>
                         <button class="btn1" onclick="onClearFilter()">Clear</button>
+                    </div>
+                </div>
+
+                <div class="empty-space"></div>
+
+                <div class="sort">
+                    <h2>Sort by</h2>
+                    <div class="header-flex">
+                        <select class="sort-by" onchange="onSortBy()">
+                            <option value="" selected></option>
+                            <option value="title">Title</option>
+                            <option value="price">Price</option>
+                            <option value="rating">Rating</option>
+                        </select>
+                        <label>
+                            <input type="radio" name="sort-by" value="1" onchange="onSortBy()" checked>
+                            Ascending
+                        </label>
+                        <label>
+                            <input type="radio" name="sort-by" value="-1" onchange="onSortBy()">
+                            Descending
+                        </label>
                     </div>
                 </div>
             </fieldset>

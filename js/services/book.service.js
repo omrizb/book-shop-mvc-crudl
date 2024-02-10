@@ -8,9 +8,10 @@ var gBooks
 _createBooks()
 
 function getBooks(options) {
-    var cars = _filterBooks(options.filterBy)
+    var books = _filterBooks(options.filterBy)
+    _sortBooks(books, options.sortBy)
     
-    return cars
+    return books
 }
 
 function addBook(title, price, imgUrl = '') {
@@ -81,4 +82,10 @@ function _filterBooks(filterBy) {
                             && book.rating >= minRating
                             && book.price >= minPrice
                             && book.price <= maxPrice)
+}
+
+function _sortBooks(books, sortBy) {
+    if (Object.keys(sortBy)[0] === 'title') books.sort((book1, book2) => book1.title.localeCompare(book2.title) * sortBy.title)
+    else if (Object.keys(sortBy)[0] === 'rating') books.sort((book1, book2) => (book1.rating - book2.rating) * sortBy.rating)
+    else if (Object.keys(sortBy)[0] === 'price') books.sort((book1, book2) => (book1.price - book2.price) * sortBy.price)
 }

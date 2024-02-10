@@ -1,5 +1,9 @@
 'use strict'
 
+const EXPENSIVE_BOOKS_MIN_PRICE = 201
+const AVERAGE_BOOKS_MIN_PRICE = 80
+const AVERAGE_BOOKS_MAX_PRICE = 200
+const CHEAP_BOOKS_MAX_PRICE = 79
 const RATING = '<img src="./images/orange_star.png" class="rating-star">'
 
 const gQueryOptions = _setQueryOptions()
@@ -40,11 +44,21 @@ function render(options) {
 }
 
 function renderFooter() {
+    const defaultQueryOptions = _setQueryOptions()
+    const updatedQueryOptions = defaultQueryOptions
+    
     const elFooter = document.querySelector('footer')
-    elFooter.querySelector('.total-books').textContent = getBooks(_setQueryOptions()).length
-    elFooter.querySelector('.expensive-books').textContent = getBooks(_setQueryOptions({ minPrice: 201 })).length
-    elFooter.querySelector('.average-books').textContent = getBooks(_setQueryOptions({ minPrice: 80, maxPrice: 200 })).length
-    elFooter.querySelector('.cheap-books').textContent = getBooks(_setQueryOptions({ maxPrice: 79 })).length
+
+    elFooter.querySelector('.total-books').textContent = getBooks(defaultQueryOptions).length
+    
+    deepMerge(updatedQueryOptions, {filterBy: {minPrice: EXPENSIVE_BOOKS_MIN_PRICE, maxPrice: 0}})
+    elFooter.querySelector('.expensive-books').textContent = getBooks(updatedQueryOptions).length
+    
+    deepMerge(updatedQueryOptions, {filterBy: {minPrice: AVERAGE_BOOKS_MIN_PRICE, maxPrice: AVERAGE_BOOKS_MAX_PRICE}})
+    elFooter.querySelector('.average-books').textContent = getBooks(updatedQueryOptions).length
+    
+    deepMerge(updatedQueryOptions, {filterBy: {minPrice: 0, maxPrice: CHEAP_BOOKS_MAX_PRICE}})
+    elFooter.querySelector('.cheap-books').textContent = getBooks(updatedQueryOptions).length
 }
 
 function onAddBook(ev) {
@@ -115,6 +129,16 @@ function onClearFilter() {
     onFilterBooks()
 }
 
+function onSortBy() {
+    const value = getQuerySortByValue().value
+    const dir = +getQuerySortByDir().value
+
+    gQueryOptions.sortBy = {}
+    gQueryOptions.sortBy[value] = dir
+
+    render(gQueryOptions)
+}
+
 function showAlert(text, alertType) {
     const alertTypes = ['green', 'orange', 'red']
     const alertClasses = ['green-alert', 'orange-alert', 'red-alert']
@@ -147,7 +171,8 @@ function _setQueryOptions() {
             minRating: 0,
             minPrice: 0,
             maxPrice: Infinity
-        }
+        },
+        sortBy: {}
     }
 }
 
