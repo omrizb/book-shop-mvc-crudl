@@ -16,7 +16,7 @@ function getBooks(options) {
 
 function addBook(title, price, imgUrl = '') {
     if (!title || title === '') return
-    const book = _createBook(title, price, imgUrl)
+    const book = _createBook(title, '', 3, price, imgUrl)
     _saveBooksToStorage()
 
     return book

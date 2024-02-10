@@ -51,7 +51,7 @@ function renderFooter() {
 
     elFooter.querySelector('.total-books').textContent = getBooks(defaultQueryOptions).length
     
-    deepMerge(updatedQueryOptions, {filterBy: {minPrice: EXPENSIVE_BOOKS_MIN_PRICE, maxPrice: 0}})
+    deepMerge(updatedQueryOptions, {filterBy: {minPrice: EXPENSIVE_BOOKS_MIN_PRICE, maxPrice: Infinity}})
     elFooter.querySelector('.expensive-books').textContent = getBooks(updatedQueryOptions).length
     
     deepMerge(updatedQueryOptions, {filterBy: {minPrice: AVERAGE_BOOKS_MIN_PRICE, maxPrice: AVERAGE_BOOKS_MAX_PRICE}})
