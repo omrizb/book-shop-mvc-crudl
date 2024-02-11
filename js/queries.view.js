@@ -15,3 +15,11 @@ function getQuerySortByValue() {
 function getQuerySortByDir() {
     return document.querySelector('input[name="sort-by"]:checked')
 }
+
+function getQueryAllSortByDirs() {
+    return document.querySelectorAll('input[name="sort-by"]')
+}
+
+function getQueryBookModal() {
+    return document.querySelector('.book-modal')
+}

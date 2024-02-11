@@ -6,14 +6,99 @@ const AVERAGE_BOOKS_MAX_PRICE = 200
 const CHEAP_BOOKS_MAX_PRICE = 79
 const RATING = '<img src="./images/orange_star.png" class="rating-star">'
 
-const gQueryOptions = _setQueryOptions()
+const gQueryOptions = setQueryOptions()
 
 var gAlertTimeoutId
 var gCarToEdit = null
 
 function onInit() {
+    readQueryParams()
     render(gQueryOptions)
 }
+
+// Query options
+function setQueryOptions() {
+    return {
+        filterBy: {
+            title: '',
+            minRating: 0,
+            minPrice: 0,
+            maxPrice: Infinity
+        },
+        sortBy: {}
+    }
+}
+
+function updateQueryOptions(options = {}) {
+    deepMerge(gQueryOptions, options)
+}
+
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+
+    gQueryOptions.filterBy = {
+        title: queryParams.get('title') || '',
+        minRating: +queryParams.get('minRating') || 0,
+        minPrice: +queryParams.get('minPrice') || 0,
+        maxPrice: +queryParams.get('maxPrice') || Infinity
+    }
+
+    if (queryParams.get('sortBy')) {
+        const value = queryParams.get('sortBy')
+        const dir = queryParams.get('sortDir')
+        gQueryOptions.sortBy[value] = dir
+    }
+
+    // if(queryParams.get('pageIdx')) {
+    //     gQueryOptions.page.idx = +queryParams.get('pageIdx')
+    //     gQueryOptions.page.size = +queryParams.get('pageSize')
+    // }
+    renderQueryParams()
+}
+
+function renderQueryParams() {
+    getQueryFilterByTitle().value = gQueryOptions.filterBy.title
+    getQueryFilterByRating().value = gQueryOptions.filterBy.minRating
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+
+    if (sortKeys.length) {
+        const sortBy = sortKeys[0]
+        const dir = +gQueryOptions.sortBy[sortKeys[0]]
+        getQuerySortByValue().value = sortBy
+        getQueryAllSortByDirs().forEach(elSortByDir => {
+            console.log(elSortByDir)
+            elSortByDir.checked = (+elSortByDir.value === dir) ? true : false
+        })
+    }    
+}
+
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('title', gQueryOptions.filterBy.title)
+    queryParams.set('minRating', gQueryOptions.filterBy.minRating)
+
+    const sortKeys = Object.keys(gQueryOptions.sortBy)
+    if (sortKeys.length) {
+        queryParams.set('sortBy', sortKeys[0])
+        queryParams.set('sortDir', gQueryOptions.sortBy[sortKeys[0]])
+    }
+
+    // if (gQueryOptions.page) {
+    //     queryParams.set('pageIdx', gQueryOptions.page.idx)
+    //     queryParams.set('pageSize', gQueryOptions.page.size)
+    // }
+
+    const newUrl =
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+// Rendering
 
 function render(options) {
     var htmlStr = ''
@@ -44,7 +129,7 @@ function render(options) {
 }
 
 function renderFooter() {
-    const defaultQueryOptions = _setQueryOptions()
+    const defaultQueryOptions = setQueryOptions()
     const updatedQueryOptions = defaultQueryOptions
     
     const elFooter = document.querySelector('footer')
@@ -80,7 +165,7 @@ function onAddBook(ev) {
 function onReadBook(bookId) {
     const book = readBook(bookId)
 
-    const elBookModal = document.querySelector('.book-modal')
+    const elBookModal = getQueryBookModal()
     elBookModal.querySelector('img').src = `./images/${book.imgUrl}`
     elBookModal.querySelector('.details h2').textContent = book.title
     elBookModal.querySelector('.details h3').textContent = book.author
@@ -119,7 +204,8 @@ function onFilterBooks() {
             minRating
         }
     }
-    _updateQueryOptions(filterBy)
+    updateQueryOptions(filterBy)
+    setQueryParams()
     render(gQueryOptions)
 }
 
@@ -136,6 +222,7 @@ function onSortBy() {
     gQueryOptions.sortBy = {}
     gQueryOptions.sortBy[value] = dir
 
+    setQueryParams()
     render(gQueryOptions)
 }
 
@@ -162,22 +249,6 @@ function addRemoveElClasses(el, classes, statuses) {
         if (statuses[idx] === 1 || statuses[idx] === true) el.classList.add(currClass)
         else el.classList.remove(currClass)
     })
-}
-
-function _setQueryOptions() {
-    return {
-        filterBy: {
-            title: '',
-            minRating: 0,
-            minPrice: 0,
-            maxPrice: Infinity
-        },
-        sortBy: {}
-    }
-}
-
-function _updateQueryOptions(options = {}) {
-    deepMerge(gQueryOptions, options)
 }
 
 function _convertRating(rating) {

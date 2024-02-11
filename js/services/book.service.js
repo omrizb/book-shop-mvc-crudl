@@ -1,7 +1,6 @@
 'use strict'
 
 const STORAGE_BOOKS_KEY = 'booksDb'
-const STORAGE_OPTIONS_KEY = 'options'
 
 var gBooks
 

@@ -40,9 +40,8 @@ section.add-book {
     background-color: navy;
 }
 
-section.content {
-    display: flex;
-    flex-direction: column;
+section.book-list {
+    flex-grow: 1;
 }
 
 table {
